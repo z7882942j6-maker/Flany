@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#FFB700">
+<title>FLANY</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══ AUTH SCREEN ══ -->
+
+<div id="auth-screen" class="auth-screen" style="display:none">
+  <div class="auth-logo">🐱</div>
+  <div class="auth-title">FL<span>Â</span>NY</div>
+  <div class="auth-tagline">Flâner. Âutrement.</div>
+
+  <div class="auth-card" id="auth-main-card">
+    <div class="auth-card-title">Rejoins les FLÂNY'S</div>
+    <div class="auth-card-sub">Crée ton compte pour sauvegarder tes spots et rejoindre la communauté</div>
+
+```
+<!-- Apple Sign In -->
+<button class="auth-btn auth-btn-apple" onclick="signInWithApple()">
+  <svg width="18" height="18" viewBox="0 0 814 1000"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 336.8 38.1 285.1 38.1 233.4c0-171.4 112.4-262.1 222.3-262.1 70.5 0 129 46.7 173.5 46.7 43.4 0 111.4-49.1 191.8-49.1 30.8 0 108.2 2.6 175.6 80.8zm-151.1-58.4c-22.9-28.1-67.9-48.4-107.2-48.4-2.6 0-5.1.3-7.7.3 1.9 10.3 15.4 34 44.3 55.5 28.2 21 58.3 31 73.3 31 2.6 0 5.1-.3 7.7-.3-1.9-10.3-8.6-30.3-10.4-38.1z" fill="#111"/></svg>
+  Continuer avec Apple
+</button>
+
+<!-- Google Sign In -->
+<button class="auth-btn auth-btn-google" onclick="signInWithGoogle()">
+  <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#fff" d="M44.5 20H24v8h11.8C34.7 33.9 29.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6-6C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/></svg>
+  Continuer avec Google
+</button>
+
+<div class="auth-divider"><span>ou</span></div>
+
+<!-- Email -->
+<button class="auth-btn auth-btn-email" onclick="showEmailAuth()">
+  ✉️ Continuer avec Email
+</button>
+
+<!-- Invité -->
+<button class="auth-btn auth-btn-guest" onclick="continueAsGuest()">
+  Continuer sans compte →
+</button>
+
+<div class="auth-legal">
+  En continuant, tu acceptes nos <span style="color:var(--gold);cursor:pointer">Conditions</span> et notre <span style="color:var(--gold);cursor:pointer">Politique de confidentialité</span>
+</div>
+```
+
+  </div>
+
+  <!-- Form email (caché) -->
+
+  <div class="auth-card" id="auth-email-card" style="display:none">
+    <div class="auth-card-title">📧 Connexion par email</div>
+    <div class="auth-card-sub">Entre ton email pour recevoir un lien de connexion</div>
+    <input type="email" class="auth-input" id="auth-email-input" placeholder="ton@email.com">
+    <input type="text" class="auth-input" id="auth-name-input" placeholder="Ton prénom (optionnel)">
+    <button class="auth-btn auth-btn-email" onclick="submitEmailAuth()">Envoyer le lien ✉️</button>
+    <button class="auth-btn auth-btn-guest" onclick="showMainAuthCard()">← Retour</button>
+  </div>
+</div>
+
+<!-- ══ SPLASH SCREEN ══ -->
+
+<div id="splash">
+  <div class="splash-cat">
+    <svg width="110" height="128" viewBox="0 0 120 138" fill="none">
+      <path d="M30 128C8 120 4 100 10 86C14 76 22 80 20 88C17 98 22 114 32 120" stroke="#1a1a1a" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <path d="M30 128C8 120 4 100 10 86C14 76 22 80 20 88C17 98 22 114 32 120" stroke="#FFD700" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <ellipse cx="66" cy="104" rx="36" ry="32" fill="#FFB700" stroke="#1a1a1a" stroke-width="3"/>
+      <ellipse cx="48" cy="132" rx="13" ry="7" fill="#FFB700" stroke="#1a1a1a" stroke-width="2.5"/>
+      <ellipse cx="82" cy="132" rx="13" ry="7" fill="#FFB700" stroke="#1a1a1a" stroke-width="2.5"/>
+      <path d="M24 52L14 20L44 42Z" fill="#FFB700" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M26 50L19 26L42 44Z" fill="#E8734A"/>
+      <path d="M84 52L96 20L68 42Z" fill="#FFB700" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M82 50L92 26L70 44Z" fill="#E8734A"/>
+      <circle cx="60" cy="62" r="42" fill="#FFB700" stroke="#1a1a1a" stroke-width="3"/>
+      <path d="M32 60Q42 50 52 60" stroke="#1a1a1a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+      <path d="M68 60Q78 50 88 60" stroke="#1a1a1a" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+      <ellipse cx="26" cy="74" rx="10" ry="6" fill="#FFB3B3" opacity="0.6"/>
+      <ellipse cx="94" cy="74" rx="10" ry="6" fill="#FFB3B3" opacity="0.6"/>
+      <path d="M56 78L60 83L64 78Z" fill="#FF8A80" stroke="#1a1a1a" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M52 84Q60 92 68 84" stroke="#1a1a1a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <line x1="6" y1="72" x2="38" y2="78" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="4" y1="80" x2="38" y2="81" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="114" y1="72" x2="82" y2="78" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+      <line x1="116" y1="80" x2="82" y2="81" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="splash-logo">
+    <div style="font-size:56px;font-weight:900;letter-spacing:-3px;color:var(--black)">FL<span style="color:white">Â</span>NY</div>
+  </div>
+  <div class="splash-tagline">Flâner. Âutrement.</div>
+  <div class="splash-dots">
+    <div class="splash-dot"></div>
+    <div class="splash-dot"></div>
+    <div class="splash-dot"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     ONBOARDING
+════════════════════════════════════ -->
+
+<div class="onboard" id="onboard" style="display:none;flex-direction:column;height:100%;background:#F7F5F0;">
+  <!-- Header avec chat animé -->
+  <div class="ob-header-new" id="ob-header">
+    <div class="ob-cat-av" style="width:48px;height:48px;font-size:26px">🐱</div>
+    <div class="ob-header-info">
+      <div class="ob-header-title" id="ob-header-title">FLÂNY</div>
+      <div class="ob-header-sub" id="ob-header-sub">Ton compagnon de flânerie</div>
+    </div>
+    <div style="font-size:12px;font-weight:800;color:rgba(0,0,0,.4)" id="ob-step-counter">1/7</div>
+  </div>
+  <div class="ob-progress-bar"><div class="ob-prog-fill" id="ob-prog-fill" style="width:14%"></div></div>
+
+  <!-- Zone de chat -->
+
+  <div class="ob-chat" id="ob-chat"></div>
+
+  <!-- Zone de réponse dynamique -->
+
+  <div id="ob-response-zone"></div>
+</div>
+
+<!-- ════════════════════════════════════
+     APP
+════════════════════════════════════ -->
+
+<div id="app" style="display:none">
+
+<!-- ── SCREEN EXPLORER ── -->
+
+<div class="screen active" id="s-explorer">
+  <div class="hero">
+    <div class="clock-pill"><div class="ldot"></div><span id="clock">--:--</span></div>
+    <div class="hero-inner">
+      <svg width="90" height="104" viewBox="0 0 120 138" fill="none"><path d="M30 128C8 120 4 100 10 86C14 76 22 80 20 88C17 98 22 114 32 120" stroke="#1a1a1a" stroke-width="9" stroke-linecap="round" fill="none"/><path d="M30 128C8 120 4 100 10 86C14 76 22 80 20 88C17 98 22 114 32 120" stroke="#FFB700" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="66" cy="104" rx="36" ry="32" fill="#FFB700" stroke="#1a1a1a" stroke-width="3"/><ellipse cx="48" cy="132" rx="13" ry="7" fill="#FFB700" stroke="#1a1a1a" stroke-width="2.5"/><ellipse cx="82" cy="132" rx="13" ry="7" fill="#FFB700" stroke="#1a1a1a" stroke-width="2.5"/><path d="M24 52L14 20L44 42Z" fill="#FFB700" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/><path d="M26 50L19 26L42 44Z" fill="#E8734A"/><path d="M84 52L96 20L68 42Z" fill="#FFB700" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/><path d="M82 50L92 26L70 44Z" fill="#E8734A"/><circle cx="60" cy="62" r="42" fill="#FFB700" stroke="#1a1a1a" stroke-width="3"/><path d="M32 60Q42 50 52 60" stroke="#1a1a1a" stroke-width="4.5" stroke-linecap="round" fill="none"/><path d="M68 60Q78 50 88 60" stroke="#1a1a1a" stroke-width="4.5" stroke-linecap="round" fill="none"/><ellipse cx="26" cy="74" rx="10" ry="6" fill="#FFB3B3" opacity="0.6"/><ellipse cx="94" cy="74" rx="10" ry="6" fill="#FFB3B3" opacity="0.6"/><path d="M56 78L60 83L64 78Z" fill="#FF8A80" stroke="#1a1a1a" stroke-width="1.5" stroke-linejoin="round"/><path d="M52 84Q60 92 68 84" stroke="#1a1a1a" stroke-width="2.8" fill="none" stroke-linecap="round"/><line x1="6" y1="72" x2="38" y2="78" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="80" x2="38" y2="81" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/><line x1="114" y1="72" x2="82" y2="78" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/><line x1="116" y1="80" x2="82" y2="81" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/></svg>
+      <div><div class="hero-name">FL<span class="hat">Â</span>NY</div><div class="hero-tag" id="hero-tag">Flâner. <span style="color:rgba(0,0,0,.65);font-weight:800">Â</span>utrement.</div></div>
+    </div>
+  </div>
+  <div class="scroll">
+    <!-- Barre recherche -->
+    <div class="search-bar" onclick="openSearch()">
+      <span class="search-ico">🔍</span>
+      <span style="font-size:15px;font-weight:600;color:#bbb">Rechercher un spot, une adresse...</span>
+    </div>
+    <!-- Stories -->
+    <div class="stories-bar" id="stories-bar"></div>
+    <div class="loc" id="loc-banner"><span style="font-size:18px">📍</span><div style="flex:1"><div class="loc-name" id="loc-name">Recherche…</div><div class="loc-sub" id="loc-sub">Active la géolocalisation</div></div><span style="color:var(--gold-d);font-size:20px;font-weight:900">›</span></div>
+    <!-- Carte météo enrichie -->
+    <div class="meteo-card" onclick="openWeather()">
+      <div class="mc-header">
+        <div>
+          <div class="mc-city" id="mc-city">Ma position</div>
+          <div style="font-size:11px;color:var(--grey);font-weight:600;margin-top:2px" id="mc-cond-txt">Chargement...</div>
+        </div>
+        <div class="mc-now">
+          <div>
+            <div class="mc-temp-big" id="mt">—</div>
+            <div style="font-size:11px;color:var(--grey);font-weight:700;text-align:right">Ressenti <span id="mc-feels">—</span></div>
+          </div>
+          <span style="font-size:32px;margin-left:8px" id="mc-ico-big">🌤️</span>
+        </div>
+      </div>
+      <!-- Détails rapides -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px">
+        <div class="mc"><div class="mc-ico">💨</div><div class="mc-lbl">Vent</div><div class="mc-val" id="mw">—</div></div>
+        <div class="mc"><div class="mc-ico">💧</div><div class="mc-lbl">Humidité</div><div class="mc-val" id="mc-hum">—</div></div>
+        <div class="mc"><div class="mc-ico">☀️</div><div class="mc-lbl">UV</div><div class="mc-val gr" id="mu">—</div></div>
+        <div class="mc"><div class="mc-ico">🌅</div><div class="mc-lbl">Coucher</div><div class="mc-val" id="ms">—</div></div>
+      </div>
+      <!-- Prévisions 7 jours -->
+      <div class="forecast-row" id="forecast-row"></div>
+      <div style="text-align:center;margin-top:10px">
+        <span class="mc-expand">Voir les détails →</span>
+      </div>
+    </div>
+    <!-- Info soleil SunCalc -->
+    <div class="soleil-info" id="soleil-info">
+      <span class="si-ico">☀️</span>
+      <div><div class="si-txt" id="si-txt">Calcul de l'ensoleillement…</div><div class="si-sub" id="si-sub">Basé sur ta position et l'heure</div></div>
+    </div>
+    <div class="tpick">
+      <div class="tb on" onclick="setTb(this)">Maintenant</div>
+      <div class="tb" onclick="setTb(this)">Dans 1h</div>
+      <div class="tb" onclick="setTb(this)">Ce soir</div>
+      <div class="tb" onclick="setTb(this)">Demain</div>
+    </div>
+
+```
+<!-- Tri et filtres -->
+<div class="sort-row">
+  <div class="sort-chip on" onclick="setSort(this,'dist')">📍 Distance</div>
+  <div class="sort-chip" onclick="setSort(this,'stars')">⭐ Note</div>
+  <div class="sort-chip" onclick="setSort(this,'open')">🟢 Ouvert</div>
+  <div class="sort-chip" onclick="setSort(this,'pop')">🔥 Populaire</div>
+</div>
+<div class="results-meta">
+  <div class="rm-count" id="results-count">8 spots trouvés</div>
+  <div class="rm-filter-btn" id="filter-btn" onclick="openFilters()">⚙️ Filtres <span id="filter-badge"></span></div>
+</div>
+
+<div class="pour-toi" id="pour-toi" style="display:none">
+  <div class="sec-lbl">⭐ Pour toi <span id="pt-label"></span></div>
+  <div class="pt-scroll" id="pt-scroll"></div>
+</div>
+<div class="humeurs-sec">
+  <div class="sec-lbl">Qu'est-ce qui te dit ?</div>
+  <div class="hgrid">
+    <div class="hcard h-soleil on" onclick="setH(this,'soleil')"><span class="h-emoji">☀️</span><div class="h-lbl">Me poser au soleil</div><div class="h-count" id="hc-soleil">10 spots</div></div>
+    <div class="hcard h-bar" onclick="setH(this,'bar')"><span class="h-emoji">🍺</span><div class="h-lbl">Boire un verre</div><div class="h-count" id="hc-bar">10 spots</div></div>
+    <div class="hcard h-balade" onclick="setH(this,'balade')"><span class="h-emoji">🚶</span><div class="h-lbl">Me balader</div><div class="h-count" id="hc-balade">8 itinéraires</div></div>
+    <div class="hcard h-food" onclick="setH(this,'food')"><span class="h-emoji">🍽️</span><div class="h-lbl">Manger</div><div class="h-count" id="hc-food">10 restos</div></div>
+    <div class="hcard h-event" onclick="setH(this,'event')"><span class="h-emoji">🎭</span><div class="h-lbl">Faire qqch</div><div class="h-count" id="hc-event">8 ce soir</div></div>
+    <div class="hcard h-zen" onclick="setH(this,'zen')"><span class="h-emoji">🌿</span><div class="h-lbl">Juste être là</div><div class="h-count" id="hc-zen">8 coins</div></div>
+  </div>
+</div>
+<div class="surprise-wrap"><button class="surprise-btn" onclick="openSurprise()"><span>🎲 Surprise-moi !</span><span class="s-hint">secoue ou clique</span></button></div>
+<!-- Streak -->
+<div class="streak-banner" id="streakBanner" style="display:none">
+  <span class="streak-ico">🔥</span>
+  <div class="streak-info">
+    <div class="streak-n"><span id="streakCount">0</span> jours</div>
+    <div class="streak-lbl">Streak de flânerie</div>
+  </div>
+  <span class="streak-bonus" id="streakBonus">+2 pts/jour</span>
+</div>
+<!-- Spot mystère -->
+<div class="mystery-banner" onclick="openMystery()">
+  <div class="mb-tag">⚡ Défi de la semaine</div>
+  <div class="mb-title">🔍 Spot mystère à découvrir</div>
+  <div class="mb-desc">Un lieu secret t'attend · Indice exclusif</div>
+  <span class="mb-pts">+25 pts si tu le trouves</span>
+  <div class="mb-hint" id="mysteryHint">Indice 1 : "Un endroit où le temps s'arrête..."</div>
+</div>
+<!-- Spots tendance -->
+<div class="trending-section">
+  <div class="sec-lbl">🔥 Tendance cette semaine</div>
+  <div class="trending-scroll" id="trending-scroll"></div>
+</div>
+<div class="rhead"><div class="rtitle" id="r-title">☀️ Terrasses ensoleillées</div><div class="rbadge" id="r-badge">8 spots</div></div>
+<div id="mini-map-container" style="margin:0 16px 12px;border-radius:20px;height:155px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);cursor:pointer;" onclick="goScreen('carte')">
+  <div id="mini-map" style="width:100%;height:100%"></div>
+</div>
+<div class="plist" id="place-list"></div>
+```
+
+  </div>
+</div>
+
+<!-- ── SCREEN CARTE ── -->
+
+<div class="screen" id="s-carte" style="background:white">
+  <div class="ph"><h1>🗺️ Carte</h1><p>Tous les spots autour de toi</p></div>
+  <div class="scroll" style="padding-bottom:90px">
+    <div id="full-map-container" style="margin:16px;border-radius:24px;height:400px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1);">
+      <div id="full-map" style="width:100%;height:100%"></div>
+    </div>
+    <div style="margin:0 16px;background:white;border-radius:18px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,.08);">
+      <div><div style="font-size:13px;font-weight:800">📍 <span id="carte-loc">Ma position</span></div><div style="font-size:11px;color:var(--grey);font-weight:600;margin-top:2px" id="carte-count">Chargement des spots…</div></div>
+      <div style="font-size:13px;font-weight:900;color:var(--gold-d)" id="carte-nb"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN SAUVÉS ── -->
+
+<div class="screen" id="s-saved" style="background:#F7F5F0">
+  <div class="ph"><h1>🔖 Mes spots sauvés</h1><p>Retrouve tes lieux favoris</p></div>
+  <div class="scroll" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;padding:40px 32px 90px;text-align:center;" id="saved-body">
+    <span style="font-size:64px;display:block;margin-bottom:16px">🐱</span>
+    <div style="font-size:18px;font-weight:900;margin-bottom:8px">Rien de sauvé encore</div>
+    <div style="font-size:14px;color:var(--grey);font-weight:600;line-height:1.6">Depuis une fiche lieu, appuie sur<br><strong>📍 J'y vais !</strong> pour sauvegarder.</div>
+  </div>
+</div>
+
+<!-- ── SCREEN PROFIL ── -->
+
+<div class="screen" id="s-profil" style="background:#F7F5F0">
+  <div class="profil-hero">
+    <span class="ph-av" id="profil-av" onclick="openAvatarPicker()">🐱</span>
+    <div class="ph-nm" id="profil-name">Mon FLÂNY</div>
+    <div class="ph-sb" id="profil-sub">Les FLÂNY'S</div>
+  </div>
+  <div class="pscroll">
+    <div class="niv-banner">
+      <span class="nv-badge" id="nv-badge">🥉</span>
+      <div class="nv-info">
+        <div class="nv-surnom" id="nv-surnom">Le Flâneur</div>
+        <div class="nv-pts" id="nv-pts">0 pts · Bronze</div>
+        <div class="nv-bar-wrap"><div class="nv-bar" id="nv-bar" style="width:0%"></div></div>
+        <div class="nv-next" id="nv-next">50 pts pour devenir Le Rôdeur</div>
+      </div>
+    </div>
+    <div class="pstats">
+      <div class="ps"><div class="ps-n" id="ps-avis">0</div><div class="ps-l">Avis</div></div>
+      <div class="ps"><div class="ps-n" id="ps-saved">0</div><div class="ps-l">Sauvés</div></div>
+      <div class="ps"><div class="ps-n" id="ps-pts">0</div><div class="ps-l">Points</div></div>
+    </div>
+    <div class="plbl">Mon profil</div>
+    <div class="pitems" id="profil-infos"></div>
+    <div class="plbl">Mes préférences</div>
+    <div class="pitems" id="profil-prefs"></div>
+    <div class="plbl">Paramètres</div>
+    <div class="pitems">
+      <div class="pitem" onclick="openAvatarPicker()">
+        <span class="pi-ico" id="av-display">🐱</span>
+        <div><div class="pi-t">Mon avatar</div><div class="pi-s">Choisir mon personnage</div></div>
+        <span class="pi-arr">›</span>
+      </div>
+      <!-- PRO Banner -->
+      <div onclick="openProScreen()" style="background:linear-gradient(135deg,#2A1500,#1A0F00);border-radius:18px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;cursor:pointer;">
+        <span style="font-size:28px">👑</span>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:900;color:white">Passe à FLÂNY Pro</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);font-weight:600;margin-top:2px">7 jours gratuits · Annule à tout moment</div>
+        </div>
+        <span style="color:var(--gold);font-size:20px">›</span>
+      </div>
+      <div class="pitem" onclick="openFollowing()">
+        <span class="pi-ico">👥</span>
+        <div style="flex:1"><div class="pi-t">Mes abonnements</div><div class="pi-s" id="following-count-lbl">0 FLÂNY'S suivis</div></div>
+        <span class="pi-arr">›</span>
+      </div>
+      <div class="pitem" id="notif-item" onclick="toggleNotif(this)">
+        <span class="pi-ico">🔔</span>
+        <div style="flex:1"><div class="pi-t">Notifications</div><div class="pi-s" id="notif-status">Activer les alertes spots</div></div>
+        <button class="toggle" id="notif-toggle"></button>
+      </div>
+      <div class="pitem" onclick="openSpotForm()">
+        <span class="pi-ico">💬</span>
+        <div><div class="pi-t">Proposer un spot</div><div class="pi-s">Partager un lieu que tu aimes</div></div>
+        <span class="pi-arr">›</span>
+      </div>
+      <div class="pitem" onclick="goScreen('communaute')">
+        <span class="pi-ico">👥</span>
+        <div><div class="pi-t">La communauté</div><div class="pi-s">Avis et photos des FLÂNY'S</div></div>
+        <span class="pi-arr">›</span>
+      </div>
+      <div class="pitem" onclick="toggleDarkMode(this)">
+        <span class="pi-ico" id="dark-ico">☀️</span>
+        <div style="flex:1"><div class="pi-t">Mode sombre</div><div class="pi-s" id="dark-status">Mode clair activé</div></div>
+        <button class="dark-toggle" id="dark-toggle"></button>
+      </div>
+      <div class="pitem" onclick="toggleVoice()">
+        <span class="pi-ico" id="voice-ico">🔇</span>
+        <div style="flex:1"><div class="pi-t">Lecture vocale</div><div class="pi-s" id="voice-status">Lecture vocale désactivée</div></div>
+        <span class="pi-arr">›</span>
+      </div>
+      <div class="pitem" onclick="toggleSound()">
+        <span class="pi-ico" id="sound-ico">🔊</span>
+        <div style="flex:1"><div class="pi-t">Sons</div><div class="pi-s" id="sound-status">Sons activés</div></div>
+        <span class="pi-arr">›</span>
+      </div>
+      <div class="pitem" onclick="toggleHaptics()">
+        <span class="pi-ico" id="haptics-ico">📳</span>
+        <div style="flex:1"><div class="pi-t">Vibrations</div><div class="pi-s" id="haptics-status">Vibrations activées</div></div>
+        <span class="pi-arr">›</span>
+      </div>
+      <div class="pitem" onclick="resetProfil()">
+        <span class="pi-ico">🔄</span>
+        <div><div class="pi-t">Refaire le questionnaire</div><div class="pi-s">Mettre à jour mes préférences</div></div>
+        <span class="pi-arr">›</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN COMMUNAUTÉ ── -->
+
+<div class="screen" id="s-communaute" style="background:#F7F5F0">
+  <div class="ph"><h1>👥 Les FLÂNY'S</h1><p>Avis et photos de la communauté</p></div>
+  <div class="scroll">
+    <div class="comm-stats">
+      <div class="ps"><div class="ps-n">847</div><div class="ps-l">Membres</div></div>
+      <div class="ps"><div class="ps-n">2.4k</div><div class="ps-l">Avis</div></div>
+      <div class="ps"><div class="ps-n">1.1k</div><div class="ps-l">Photos</div></div>
+    </div>
+    <div style="padding:0 16px" id="comm-feed"></div>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
+
+<!-- ── SCREEN DÉCOUVERTE ── -->
+
+<div class="screen discover-screen" id="s-discover">
+  <div class="ph"><h1>🔥 Découvrir</h1><p>Tendances &amp; événements</p></div>
+  <div class="scroll">
+    <div class="discover-tabs" style="margin-top:16px">
+      <div class="dtab on" onclick="setDiscoverTab(this,'trending')">🔥 Top</div>
+      <div class="dtab" onclick="setDiscoverTab(this,'calendar')">📅 Agenda</div>
+      <div class="dtab" onclick="setDiscoverTab(this,'itineraires')">🗺️ Itinéraires</div>
+      <div class="dtab" onclick="setDiscoverTab(this,'historique')">🕐 Historique</div>
+      <div class="dtab" onclick="setDiscoverTab(this,'heatmap')">📊 Stats</div>
+    </div>
+    <div id="discover-trending" style="padding:0 16px"></div>
+    <div id="discover-calendar" style="display:none;padding-bottom:90px"></div>
+    <div id="discover-itineraires" style="padding:0 16px;display:none"></div>
+    <div id="discover-historique" style="padding:0 16px;display:none"></div>
+    <div id="discover-heatmap" style="padding:0 16px;display:none"></div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="ni on" id="ni-explorer" onclick="goScreen('explorer')"><span class="ni-ico">🏠</span><span class="ni-lbl">Explorer</span></div>
+  <div class="ni" id="ni-carte" onclick="goScreen('carte')"><span class="ni-ico">🗺️</span><span class="ni-lbl">Carte</span></div>
+  <div class="ni" id="ni-discover" onclick="goScreen('discover')"><span class="ni-ico">🔥</span><span class="ni-lbl">Tendances</span></div>
+  <div class="ni" id="ni-saved" onclick="goScreen('saved')"><span class="ni-ico">🔖</span><span class="ni-lbl">Sauvés</span></div>
+  <div class="ni" id="ni-profil" onclick="goScreen('profil')"><span class="ni-ico">👤</span><span class="ni-lbl">Moi</span></div>
+</nav>
+
+<!-- Boutons flottants -->
+
+<button class="ai-btn" id="ai-float-btn" onclick="openAI()" title="Demander à FLÂNY IA" style="bottom:90px;right:16px">🐱</button>
+<button class="ai-btn" id="voice-btn" onclick="voiceListening?stopListening():startListening()" title="Commande vocale" style="bottom:158px;right:16px;width:46px;height:46px;font-size:20px;display:none;background:#333">🎤</button>
+<button class="ar-btn" id="ar-float-btn" onclick="openAR()" title="Mode Réalité Augmentée">🔮</button>
+
+<!-- ── OVERLAY FICHE ── -->
+
+<div class="overlay" id="ov-fiche" onclick="if(event.target===this)closeFiche()">
+  <div class="sheet">
+    <div class="sh-bar"></div>
+    <div class="sh-hd">
+      <div class="sh-ico" id="sh-ico"></div>
+      <div><div class="sh-ttl" id="sh-ttl"></div><div class="sh-sub" id="sh-sub"></div></div>
+    </div>
+    <!-- Info soleil dans la fiche -->
+    <div id="sh-soleil" style="background:linear-gradient(135deg,#FFF8E1,#FFF3CD);border-radius:14px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:22px">☀️</span>
+      <div><div style="font-size:13px;font-weight:800;color:var(--gold-d)" id="sh-soleil-txt">Ensoleillement en cours de calcul…</div><div style="font-size:11px;color:rgba(0,0,0,.4);font-weight:600;margin-top:2px" id="sh-soleil-sub">Selon ta position et l'heure</div></div>
+    </div>
+    <div id="sh-rows"></div>
+    <div class="rev-sec">
+      <div class="rev-ttl"><span id="rev-count">💬 Avis de la communauté</span><span style="color:var(--gold-d)" id="rev-stars"></span></div>
+      <div id="rev-list"></div>
+    </div>
+    <button class="sh-cta2" onclick="openRating()">✍️ Donner mon avis · Gagner des points</button>
+    <button class="sh-cta" onclick="saveFiche()">📍 J'y vais !</button>
+  </div>
+</div>
+
+<!-- ── MODAL NOTATION ── -->
+
+<div class="modal" id="modal-rating" onclick="if(event.target===this)closeRating()">
+  <div class="msheet">
+    <div class="sh-bar"></div>
+    <div class="rs-dots"><div class="rs-dot on" id="rd0"></div><div class="rs-dot" id="rd1"></div><div class="rs-dot" id="rd2"></div><div class="rs-dot" id="rd3"></div></div>
+
+```
+<!-- Step 0: Like/Dislike -->
+<div class="rs-step active" id="rst0">
+  <div class="rs-q" id="rsq0">Tu as aimé ce lieu ?</div>
+  <div class="like-row">
+    <div class="like-btn" id="like-yes" onclick="setLike(true)"><span class="like-ico">👍</span>J'ai adoré</div>
+    <div class="like-btn" id="like-no" onclick="setLike(false)"><span class="like-ico">👎</span>Pas convaincu</div>
+  </div>
+  <div class="rs-nav"><button class="rs-next" onclick="rsGo(1)">Suivant →</button></div>
+</div>
+
+<!-- Step 1: Étoiles -->
+<div class="rs-step" id="rst1">
+  <div class="rs-q">Note de 1 à 5 étoiles</div>
+  <div class="stars-row" id="stars-row">
+    <span class="star-btn" data-n="1" onclick="setStar(1)">⭐</span>
+    <span class="star-btn" data-n="2" onclick="setStar(2)">⭐</span>
+    <span class="star-btn" data-n="3" onclick="setStar(3)">⭐</span>
+    <span class="star-btn" data-n="4" onclick="setStar(4)">⭐</span>
+    <span class="star-btn" data-n="5" onclick="setStar(5)">⭐</span>
+  </div>
+  <div class="rs-nav"><button class="rs-back" onclick="rsGo(0)">←</button><button class="rs-next" onclick="rsGo(2)">Suivant →</button></div>
+</div>
+
+<!-- Step 2: Adjectifs -->
+<div class="rs-step" id="rst2">
+  <div class="rs-q">L'ambiance en un mot FLÂNY</div>
+  <div class="adj-wrap">
+    <div class="adj-chip" onclick="togAdj(this)">☀️ Ensoleillé</div>
+    <div class="adj-chip" onclick="togAdj(this)">🛋️ Cosy</div>
+    <div class="adj-chip" onclick="togAdj(this)">🎉 Vivant</div>
+    <div class="adj-chip" onclick="togAdj(this)">🌿 Tranquille</div>
+    <div class="adj-chip" onclick="togAdj(this)">🔍 Caché</div>
+    <div class="adj-chip" onclick="togAdj(this)">📸 Instagrammable</div>
+    <div class="adj-chip" onclick="togAdj(this)">💯 Authentique</div>
+    <div class="adj-chip" onclick="togAdj(this)">✨ Inédit</div>
+    <div class="adj-chip" onclick="togAdj(this)">🔥 Vibe</div>
+  </div>
+  <div class="rs-nav"><button class="rs-back" onclick="rsGo(1)">←</button><button class="rs-next" onclick="rsGo(3)">Suivant →</button></div>
+</div>
+
+<!-- Step 3: Photo -->
+<div class="rs-step" id="rst3">
+  <div class="rs-q">Ajoute une photo pour gagner des points</div>
+  <div class="photo-opts">
+    <div class="photo-opt" id="opt-selfie" onclick="triggerPhoto('selfie')">
+      <span class="po-ico">🤳</span>
+      <div class="po-t">Selfie sur place</div>
+      <div class="po-p">+5 points 🏆</div>
+    </div>
+    <div class="photo-opt" id="opt-lieu" onclick="triggerPhoto('lieu')">
+      <span class="po-ico">📷</span>
+      <div class="po-t">Photo du lieu</div>
+      <div class="po-p">+1 point</div>
+    </div>
+  </div>
+  <img class="photo-preview" id="photo-preview" alt="">
+  <div class="photo-lbl" id="photo-lbl"></div>
+  <div style="text-align:center;font-size:12px;color:#bbb;font-weight:600;margin-bottom:16px">ou continue sans photo</div>
+  <div class="rs-nav"><button class="rs-back" onclick="rsGo(2)">←</button><button class="rs-next gold" onclick="submitRating()">✓ Publier mon avis</button></div>
+</div>
+```
+
+  </div>
+</div>
+<!-- Inputs photo cachés -->
+<input type="file" accept="image/*" capture="user" id="input-selfie" style="display:none" onchange="handlePhoto(this,'selfie')">
+<input type="file" accept="image/*" capture="environment" id="input-lieu" style="display:none" onchange="handlePhoto(this,'lieu')">
+
+<!-- ── MODAL SURPRISE ── -->
+
+<div class="modal" id="modal-surprise" onclick="if(event.target===this)closeSurprise()">
+  <div class="msheet" style="padding-bottom:48px">
+    <div class="sh-bar"></div>
+    <div style="text-align:center">
+      <span style="font-size:64px;display:block;margin-bottom:16px" id="surp-ico">🎲</span>
+      <div style="font-size:22px;font-weight:900;margin-bottom:8px" id="surp-name"></div>
+      <div style="font-size:13px;color:var(--grey);line-height:1.65;margin-bottom:14px" id="surp-desc"></div>
+      <div style="font-size:13px;font-weight:900;color:var(--gold-d);margin-bottom:24px" id="surp-dist"></div>
+      <div style="display:flex;gap:10px">
+        <button class="rs-next gold" style="flex:1;padding:14px" onclick="closeSurprise()">🗺️ Y aller</button>
+        <button class="rs-next" style="flex:1;padding:14px" onclick="nextSurprise()">🔀 Autre</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL AVATAR ── -->
+
+<div class="modal" id="modal-avatar" onclick="if(event.target===this)closeAvatarPicker()">
+  <div class="msheet">
+    <div class="sh-bar"></div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:4px">Choisis ton avatar</div>
+    <div style="font-size:13px;color:var(--grey);font-weight:600;margin-bottom:4px">Ton emoji dans la communauté</div>
+    <div class="av-grid" id="av-grid">
+      <div class="av-opt on" onclick="selAv(this)">🐱</div><div class="av-opt" onclick="selAv(this)">🦊</div>
+      <div class="av-opt" onclick="selAv(this)">🐺</div><div class="av-opt" onclick="selAv(this)">🦝</div>
+      <div class="av-opt" onclick="selAv(this)">🐻</div><div class="av-opt" onclick="selAv(this)">🐼</div>
+      <div class="av-opt" onclick="selAv(this)">🦁</div><div class="av-opt" onclick="selAv(this)">🐯</div>
+      <div class="av-opt" onclick="selAv(this)">🦄</div><div class="av-opt" onclick="selAv(this)">🐸</div>
+      <div class="av-opt" onclick="selAv(this)">🐙</div><div class="av-opt" onclick="selAv(this)">🦋</div>
+      <div class="av-opt" onclick="selAv(this)">🌸</div><div class="av-opt" onclick="selAv(this)">⭐</div>
+      <div class="av-opt" onclick="selAv(this)">🌙</div><div class="av-opt" onclick="selAv(this)">☀️</div>
+      <div class="av-opt" onclick="selAv(this)">🌈</div><div class="av-opt" onclick="selAv(this)">🎯</div>
+      <div class="av-opt" onclick="selAv(this)">🎨</div><div class="av-opt" onclick="selAv(this)">🎸</div>
+      <div class="av-opt" onclick="selAv(this)">🏄</div><div class="av-opt" onclick="selAv(this)">🚴</div>
+      <div class="av-opt" onclick="selAv(this)">🧗</div><div class="av-opt" onclick="selAv(this)">🧘</div>
+    </div>
+    <button class="ob-btn gold" onclick="confirmAvatar()">Valider ✓</button>
+  </div>
+</div>
+
+<!-- ── MODAL SPOT ── -->
+
+<div class="modal" id="modal-spot" onclick="if(event.target===this)closeSpotForm()">
+  <div class="msheet">
+    <div class="sh-bar"></div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:4px">💬 Proposer un spot</div>
+    <div style="font-size:13px;color:var(--grey);font-weight:600;margin-bottom:20px">Tu connais un endroit top ? Partage-le !</div>
+    <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#bbb;margin-bottom:8px">Nom du lieu</div>
+    <input class="ob-input" id="spot-name" type="text" placeholder="Ex: Café de la Terrasse…" maxlength="60">
+    <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#bbb;margin-bottom:8px">Adresse</div>
+    <input class="ob-input" id="spot-addr" type="text" placeholder="Rue, ville…" maxlength="100">
+    <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#bbb;margin-bottom:8px">Catégorie</div>
+    <div class="ob-chips" id="spot-cat">
+      <div class="ob-chip" onclick="soloChip(this,'spot-cat')">☀️ Terrasse</div>
+      <div class="ob-chip" onclick="soloChip(this,'spot-cat')">🍺 Bar</div>
+      <div class="ob-chip" onclick="soloChip(this,'spot-cat')">🚶 Balade</div>
+      <div class="ob-chip" onclick="soloChip(this,'spot-cat')">🍽️ Resto</div>
+      <div class="ob-chip" onclick="soloChip(this,'spot-cat')">🎭 Événement</div>
+      <div class="ob-chip" onclick="soloChip(this,'spot-cat')">🌿 Zen</div>
+    </div>
+    <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#bbb;margin-bottom:8px">Description courte</div>
+    <textarea class="ob-input" id="spot-desc" placeholder="Ce qui le rend spécial…" maxlength="200"></textarea>
+    <div style="font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#bbb;margin-bottom:8px">Photo (optionnel · +1 pt)</div>
+    <div class="photo-zone" id="spot-photo-zone">
+      <span class="pz-ico">📷</span>
+      <div class="pz-t">Ajouter une photo</div>
+      <div class="pz-s">Appuie pour ouvrir ta galerie</div>
+      <input type="file" accept="image/*" onchange="handleSpotPhoto(this)">
+    </div>
+    <img class="spot-preview" id="spot-preview" alt="">
+    <button class="ob-btn gold" onclick="submitSpot()" style="margin-top:8px">Envoyer ma proposition 🐾</button>
+    <div class="ob-skip" onclick="closeSpotForm()">Annuler</div>
+  </div>
+</div>
+
+<!-- TOAST & POINTS POPUP -->
+
+<div id="toast"></div>
+<div id="pts-pop"><span class="pp-ico" id="pp-ico">⭐</span><div class="pp-val" id="pp-val">+0 pts</div><div class="pp-lbl" id="pp-lbl">Bravo !</div></div>
+
+<!-- ══ MODAL FILTRES ══ -->
+
+<div class="filter-modal" id="filterModal" onclick="if(event.target===this)closeFilters()">
+  <div class="filter-sheet">
+    <div class="sh-bar"></div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:18px">⚙️ Filtres</div>
+
+```
+<div class="fsec">
+  <div class="fsec-t">Distance max</div>
+  <div class="frow" id="f-dist">
+    <div class="ftag on" onclick="soloFilter(this,'f-dist')">🚶 5 min</div>
+    <div class="ftag" onclick="soloFilter(this,'f-dist')">🚶 15 min</div>
+    <div class="ftag" onclick="soloFilter(this,'f-dist')">🚶 30 min</div>
+    <div class="ftag" onclick="soloFilter(this,'f-dist')">🗺️ Tout</div>
+  </div>
+</div>
+
+<div class="fsec">
+  <div class="fsec-t">Budget</div>
+  <div class="frow" id="f-prix">
+    <div class="ftag" onclick="togFilter(this,'f-prix')">🆓 Gratuit</div>
+    <div class="ftag" onclick="togFilter(this,'f-prix')">€ Raisonnable</div>
+    <div class="ftag" onclick="togFilter(this,'f-prix')">€€ Moyen</div>
+    <div class="ftag" onclick="togFilter(this,'f-prix')">€€€ Premium</div>
+  </div>
+</div>
+
+<div class="fsec">
+  <div class="fsec-t">Note minimum</div>
+  <div class="frow" id="f-note">
+    <div class="ftag" onclick="soloFilter(this,'f-note')">⭐ 3+</div>
+    <div class="ftag" onclick="soloFilter(this,'f-note')">⭐ 4+</div>
+    <div class="ftag on" onclick="soloFilter(this,'f-note')">⭐ 4.5+</div>
+    <div class="ftag" onclick="soloFilter(this,'f-note')">⭐ Toutes</div>
+  </div>
+</div>
+
+<div class="fsec">
+  <div class="fsec-t">Options</div>
+  <div class="frow" id="f-options">
+    <div class="ftag" onclick="togFilter(this,'f-options')">🟢 Ouvert maintenant</div>
+    <div class="ftag" onclick="togFilter(this,'f-options')">🐕 Dog-friendly</div>
+    <div class="ftag" onclick="togFilter(this,'f-options')">♿ Accessible PMR</div>
+    <div class="ftag" onclick="togFilter(this,'f-options')">🌿 Terrasse</div>
+    <div class="ftag" onclick="togFilter(this,'f-options')">📶 Wi-Fi</div>
+  </div>
+</div>
+
+<div style="display:flex;gap:10px;margin-top:8px">
+  <button style="flex:1;background:#F5F5F5;border:none;border-radius:16px;padding:14px;font-size:14px;font-weight:900;cursor:pointer" onclick="resetFilters()">Réinitialiser</button>
+  <button style="flex:2;background:var(--black);color:white;border:none;border-radius:16px;padding:14px;font-size:14px;font-weight:900;cursor:pointer" onclick="applyFilters()">Voir les résultats</button>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ══ SHARE MODAL ══ -->
+
+<div class="share-modal" id="shareModal" onclick="if(event.target===this)closeShare()">
+  <div class="share-sheet">
+    <div class="sh-bar"></div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:4px">📤 Partager</div>
+    <div style="font-size:13px;color:var(--grey);font-weight:600;margin-bottom:16px" id="share-subtitle">Partage ce spot avec tes amis</div>
+    <div class="share-options">
+      <div class="sopt" onclick="shareVia('whatsapp')"><span class="sopt-ico">💬</span><span class="sopt-lbl">WhatsApp</span></div>
+      <div class="sopt" onclick="shareVia('copy')"><span class="sopt-ico">🔗</span><span class="sopt-lbl">Copier lien</span></div>
+      <div class="sopt" onclick="shareVia('native')"><span class="sopt-ico">📱</span><span class="sopt-lbl">Plus...</span></div>
+      <div class="sopt" onclick="shareVia('instagram')"><span class="sopt-ico">📸</span><span class="sopt-lbl">Instagram</span></div>
+      <div class="sopt" onclick="shareVia('sms')"><span class="sopt-ico">✉️</span><span class="sopt-lbl">SMS</span></div>
+      <div class="sopt" onclick="shareVia('niveau')"><span class="sopt-ico">🏆</span><span class="sopt-lbl">Mon niveau</span></div>
+    </div>
+    <div class="invite-card">
+      <div class="ic-title">Invite un(e) ami(e) sur FLÂNY</div>
+      <div class="ic-desc">Tu gagnes 10 pts quand il rejoint !</div>
+      <button class="ic-btn" onclick="inviteFriend()">🐾 Inviter un FLÂNY'S</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NOTIF CENTER ══ -->
+
+<div class="notif-center" id="notifCenter">
+  <div class="notif-toast" id="notifToast">
+    <span class="nt-ico" id="ntIco">🔔</span>
+    <div class="nt-content">
+      <div class="nt-title" id="ntTitle">Notification</div>
+      <div class="nt-sub" id="ntSub">FLÂNY</div>
+    </div>
+    <span class="nt-close" onclick="closeNotifToast()">✕</span>
+  </div>
+</div>
+
+<!-- Mystery modal -->
+
+<div class="modal" id="modal-mystery" onclick="if(event.target===this)closeMystery()">
+  <div class="msheet" style="text-align:center;padding-bottom:48px">
+    <div class="sh-bar"></div>
+    <div style="font-size:64px;margin-bottom:12px">🔍</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:8px">Spot Mystère</div>
+    <div style="font-size:14px;color:var(--grey);font-weight:600;line-height:1.6;margin-bottom:20px">Trouve ce lieu secret pour gagner <strong>+25 pts</strong> et le badge spécial !</div>
+    <div id="mysteryClues" style="text-align:left;margin-bottom:20px"></div>
+    <div style="display:flex;gap:10px">
+      <button class="rs-next gold" style="padding:14px" onclick="revealHint()">💡 Indice suivant (-2 pts)</button>
+      <button class="rs-next" style="padding:14px" onclick="confirmMystery()">✓ J'y suis !</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE PROFIL PUBLIC ══ -->
+
+<div class="profile-page" id="profilePage">
+  <div class="profile-header">
+    <div class="profile-back" onclick="closeProfile()">←</div>
+    <span class="profile-av-big" id="pp-avatar">🐱</span>
+    <div class="profile-name-big" id="pp-name">Flâneur</div>
+    <div class="profile-level" id="pp-level">Le Flâneur · Les FLÂNY'S</div>
+    <button class="follow-btn" id="pp-follow-btn" onclick="toggleFollow()">+ Suivre</button>
+  </div>
+  <div class="profile-scroll">
+    <div class="profile-stats-row">
+      <div class="ps"><div class="ps-n" id="pp-avis">0</div><div class="ps-l">Avis</div></div>
+      <div class="ps"><div class="ps-n" id="pp-followers">0</div><div class="ps-l">Abonnés</div></div>
+      <div class="ps"><div class="ps-n" id="pp-pts">0</div><div class="ps-l">Points</div></div>
+    </div>
+    <div class="profile-tabs" style="margin:0 16px 16px">
+      <div class="ptab on" onclick="setProfTab(this,'avis')">💬 Avis</div>
+      <div class="ptab" onclick="setProfTab(this,'badges')">🎖️ Badges</div>
+      <div class="ptab" onclick="setProfTab(this,'spots')">📍 Spots</div>
+    </div>
+    <div id="pp-avis-list" style="padding:0 16px"></div>
+    <div id="pp-badges-list" style="padding:0 16px;display:none"></div>
+    <div id="pp-spots-list" style="padding:0 16px;display:none"></div>
+  </div>
+</div>
+
+<!-- ══ PAGE ABONNEMENTS ══ -->
+
+<div class="profile-page" id="followingPage">
+  <div style="background:var(--white);padding:52px 20px 18px;border-bottom:1px solid #eee">
+    <div class="profile-back" onclick="closeFollowing()">←</div>
+    <div style="font-size:20px;font-weight:900" id="following-title">Abonnements</div>
+    <div style="font-size:13px;color:var(--grey);font-weight:600;margin-top:3px" id="following-sub">Les FLÂNY'S que tu suis</div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:16px 16px 40px" id="following-list"></div>
+</div>
+
+<!-- ══ MODAL COMMENTAIRES ══ -->
+
+<div class="comments-modal" id="commentsModal" onclick="if(event.target===this)closeComments()">
+  <div class="comments-sheet">
+    <div class="sh-bar"></div>
+    <div style="font-size:16px;font-weight:900;margin-bottom:16px" id="comments-title">💬 Commentaires</div>
+    <div class="comments-list" id="comments-list"></div>
+    <div class="comments-footer">
+      <div class="comment-input-wrap">
+        <span style="font-size:24px" id="my-comment-av">🐱</span>
+        <textarea class="c-input" id="comment-input" placeholder="Ajoute un commentaire..." rows="1" 
+          oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+        <button class="c-send" onclick="submitComment()">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL IA FLÂNY ══ -->
+
+<div class="ai-modal" id="aiModal" onclick="if(event.target===this)closeAI()">
+  <div class="ai-sheet">
+    <div class="sh-bar"></div>
+    <div class="ai-header">
+      <div class="ai-av">🐱</div>
+      <div>
+        <div class="ai-title">FLÂNY IA</div>
+        <div class="ai-sub">Ton assistant de flânerie personnalisé</div>
+      </div>
+      <span style="margin-left:auto;color:#bbb;font-size:20px;cursor:pointer" onclick="closeAI()">✕</span>
+    </div>
+    <div class="ai-messages" id="ai-messages"></div>
+    <div class="ai-suggestions" id="ai-suggestions">
+      <div class="ai-sug" onclick="askAI(this.textContent)">☀️ Où aller maintenant ?</div>
+      <div class="ai-sug" onclick="askAI(this.textContent)">🍽️ Où manger ce soir ?</div>
+      <div class="ai-sug" onclick="askAI(this.textContent)">🌿 Un coin zen proche ?</div>
+      <div class="ai-sug" onclick="askAI(this.textContent)">🎭 Quoi faire ce weekend ?</div>
+      <div class="ai-sug" onclick="askAI(this.textContent)">🐕 Spots dog-friendly ?</div>
+      <div class="ai-sug" onclick="askAI(this.textContent)">💶 Spots gratuits ?</div>
+    </div>
+    <div class="ai-input-row">
+      <textarea class="ai-input" id="ai-input" placeholder="Demande à FLÂNY IA..." rows="1"
+        oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI();}"></textarea>
+      <button class="ai-send" onclick="sendAI()">➤</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SEARCH OVERLAY ══ -->
+
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-top">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="search-top-bar" style="flex:1">
+        <span style="font-size:18px">🔍</span>
+        <input type="text" class="search-input" id="search-input" 
+          placeholder="Spot, adresse, quartier..."
+          oninput="onSearchInput(this.value)"
+          autofocus>
+        <span class="search-clear" id="search-clear" onclick="clearSearch()">✕</span>
+      </div>
+      <span class="search-cancel" onclick="closeSearch()">Annuler</span>
+    </div>
+  </div>
+  <div class="search-scroll" id="search-scroll">
+    <!-- Recherches récentes -->
+    <div class="search-section" id="search-recents-section">
+      <div class="search-section-title">Recherches récentes</div>
+      <div class="search-recent" id="search-recents"></div>
+    </div>
+    <!-- Catégories rapides -->
+    <div class="search-section" id="search-cats-section">
+      <div class="search-section-title">Parcourir par catégorie</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <div class="hcard h-soleil" onclick="closeSearch();setH(document.querySelector('.hcard.h-soleil'),'soleil')" style="padding:12px 8px">
+          <span class="h-emoji" style="font-size:24px">☀️</span><div class="h-lbl">Terrasses</div>
+        </div>
+        <div class="hcard h-bar" onclick="closeSearch();setH(document.querySelector('.hcard.h-bar'),'bar')" style="padding:12px 8px">
+          <span class="h-emoji" style="font-size:24px">🍺</span><div class="h-lbl">Bars</div>
+        </div>
+        <div class="hcard h-food" onclick="closeSearch();setH(document.querySelector('.hcard.h-food'),'food')" style="padding:12px 8px">
+          <span class="h-emoji" style="font-size:24px">🍽️</span><div class="h-lbl">Restos</div>
+        </div>
+        <div class="hcard h-balade" onclick="closeSearch();setH(document.querySelector('.hcard.h-balade'),'balade')" style="padding:12px 8px">
+          <span class="h-emoji" style="font-size:24px">🚶</span><div class="h-lbl">Balades</div>
+        </div>
+        <div class="hcard h-event" onclick="closeSearch();setH(document.querySelector('.hcard.h-event'),'event')" style="padding:12px 8px">
+          <span class="h-emoji" style="font-size:24px">🎭</span><div class="h-lbl">Events</div>
+        </div>
+        <div class="hcard h-zen" onclick="closeSearch();setH(document.querySelector('.hcard.h-zen'),'zen')" style="padding:12px 8px">
+          <span class="h-emoji" style="font-size:24px">🌿</span><div class="h-lbl">Zen</div>
+        </div>
+      </div>
+    </div>
+    <!-- Résultats -->
+    <div class="search-section" id="search-results-section" style="display:none">
+      <div class="search-section-title" id="search-results-title">Résultats</div>
+      <div class="search-results" id="search-results-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL MÉTÉO DÉTAILLÉE ══ -->
+
+<div class="weather-modal" id="weatherModal" onclick="if(event.target===this)closeWeather()">
+  <div class="weather-sheet">
+    <div class="sh-bar"></div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:16px">🌤️ Météo complète</div>
+    <!-- Hero météo -->
+    <div class="weather-hero" id="weather-hero">
+      <div class="wh-temp" id="wh-temp">—</div>
+      <div class="wh-cond" id="wh-cond">Chargement...</div>
+      <div class="wh-feels">Ressenti <span id="wh-feels">—</span></div>
+    </div>
+    <!-- Conseil flânerie -->
+    <div class="flaner-advice" id="flaner-advice">
+      <div class="fa-title">🐱 Conseil FLÂNY</div>
+      <div class="fa-text" id="flaner-advice-text">Analyse en cours...</div>
+    </div>
+    <!-- Détails -->
+    <div class="weather-details">
+      <div class="wd-item"><div class="wd-ico">💨</div><div class="wd-val" id="wd-wind">—</div><div class="wd-lbl">Vent</div></div>
+      <div class="wd-item"><div class="wd-ico">💧</div><div class="wd-val" id="wd-hum">—</div><div class="wd-lbl">Humidité</div></div>
+      <div class="wd-item"><div class="wd-ico">☀️</div><div class="wd-val" id="wd-uv">—</div><div class="wd-lbl">Indice UV</div></div>
+      <div class="wd-item"><div class="wd-ico">👁️</div><div class="wd-val" id="wd-vis">—</div><div class="wd-lbl">Visibilité</div></div>
+      <div class="wd-item"><div class="wd-ico">🌅</div><div class="wd-val" id="wd-sunrise">—</div><div class="wd-lbl">Lever</div></div>
+      <div class="wd-item"><div class="wd-ico">🌇</div><div class="wd-val" id="wd-sunset">—</div><div class="wd-lbl">Coucher</div></div>
+    </div>
+    <!-- Prévisions 7 jours -->
+    <div style="font-size:13px;font-weight:900;margin-bottom:10px">📅 Prévisions 7 jours</div>
+    <div class="forecast-7" id="forecast-7"></div>
+  </div>
+</div>
+
+<!-- ══ MODE AR ══ -->
+
+<div class="ar-view" id="ar-view" style="display:none">
+  <!-- Vidéo caméra (réelle si dispo) -->
+  <video class="ar-video" id="ar-video" autoplay playsinline muted></video>
+
+  <!-- Mode non disponible / démo -->
+
+  <div class="ar-unavailable" id="ar-unavailable" style="display:none">
+    <div class="aru-ico">🔮</div>
+    <div class="aru-title">Mode AR FLÂNY</div>
+    <div class="aru-desc">
+      Pointe ta caméra autour de toi pour voir les spots flotter dans l espace réel !<br><br>
+      <strong>Nécessite HTTPS + autorisation caméra</strong><br>
+      Disponible sur flany.netlify.app 🚀
+    </div>
+    <button class="aru-demo-btn" onclick="startARDemo()">🎭 Voir la démo AR</button>
+    <button class="aru-close-btn" onclick="closeAR()">✕ Fermer</button>
+  </div>
+
+  <!-- UI AR (par-dessus la caméra) -->
+
+  <div class="ar-ui" id="ar-ui" style="display:none">
+    <!-- Header -->
+    <div class="ar-header">
+      <button class="ar-close" onclick="closeAR()">✕</button>
+      <div class="ar-title">🔮 FLÂNY AR</div>
+      <button class="ar-mode-toggle" onclick="toggleARMode()">📍 Pins</button>
+    </div>
+    <!-- Boussole -->
+    <div class="ar-compass" id="ar-compass">🧭</div>
+    <!-- Pins -->
+    <div id="ar-pins"></div>
+    <!-- Popup spot -->
+    <div class="ar-spot-popup" id="ar-spot-popup">
+      <div class="asp-header">
+        <span class="asp-ico" id="asp-ico"></span>
+        <div><div class="asp-name" id="asp-name"></div><div class="asp-meta" id="asp-meta"></div></div>
+      </div>
+      <div class="asp-stats" id="asp-stats"></div>
+      <button class="asp-cta" id="asp-cta">Voir la fiche complète →</button>
+    </div>
+    <!-- Bas AR -->
+    <div class="ar-bottom">
+      <div class="ar-filters" id="ar-filters">
+        <div class="ar-filter-chip on" onclick="setARFilter(this,'all')">🌟 Tout</div>
+        <div class="ar-filter-chip" onclick="setARFilter(this,'soleil')">☀️ Terrasses</div>
+        <div class="ar-filter-chip" onclick="setARFilter(this,'bar')">🍺 Bars</div>
+        <div class="ar-filter-chip" onclick="setARFilter(this,'food')">🍽️ Restos</div>
+        <div class="ar-filter-chip" onclick="setARFilter(this,'zen')">🌿 Zen</div>
+        <div class="ar-filter-chip" onclick="setARFilter(this,'open')">🟢 Ouvert</div>
+      </div>
+      <div class="ar-radius-row">
+        <span class="ar-radius-lbl">🚶</span>
+        <input type="range" class="ar-radius-slider" id="ar-radius" min="2" max="20" value="10" oninput="updateARRadius(this.value)">
+        <span class="ar-radius-val" id="ar-radius-val">10 min</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCREEN PRO ══ -->
+
+<div class="pro-screen" id="pro-screen" style="display:none">
+  <div style="position:absolute;top:14px;right:16px;z-index:1">
+    <button onclick="closeProScreen()" style="background:rgba(255,255,255,.1);border:none;border-radius:50%;width:36px;height:36px;color:white;font-size:18px;cursor:pointer">✕</button>
+  </div>
+  <div class="ps-header">
+    <span class="ps-crown">👑</span>
+    <div class="ps-title">FLÂNY <span style="color:var(--gold)">Pro</span></div>
+    <div class="ps-sub">Débloque toutes les fonctionnalités premium<br>et rejoins l élite des FLÂNY'S</div>
+  </div>
+
+  <!-- Plans -->
+
+  <div class="pro-plans">
+    <div class="pro-plan monthly" onclick="selectPlan('monthly',this)">
+      <div class="pro-plan-name">Mensuel</div>
+      <div class="pro-plan-price">4,99€</div>
+      <div class="pro-plan-period">par mois</div>
+    </div>
+    <div class="pro-plan yearly" onclick="selectPlan('yearly',this)">
+      <div class="pro-plan-badge">⭐ Meilleur choix</div>
+      <div class="pro-plan-name">Annuel</div>
+      <div class="pro-plan-price">39€</div>
+      <div class="pro-plan-period">par an</div>
+      <div class="pro-plan-save">Économise 21€ !</div>
+    </div>
+  </div>
+
+  <!-- Features -->
+
+  <div class="pro-features">
+    <div class="pro-feat"><span class="pf-ico">🔮</span><div class="pf-info"><div class="pf-title">Mode AR avancé</div><div class="pf-sub">Spots en réalité augmentée sans limite</div></div><span class="pf-pro">PRO</span></div>
+    <div class="pro-feat"><span class="pf-ico">⭐</span><div class="pf-info"><div class="pf-title">Spots Premium exclusifs</div><div class="pf-sub">Accès aux lieux partenaires FLÂNY</div></div><span class="pf-pro">PRO</span></div>
+    <div class="pro-feat"><span class="pf-ico">📊</span><div class="pf-info"><div class="pf-title">Stats avancées</div><div class="pf-sub">Analyse complète de tes habitudes</div></div><span class="pf-pro">PRO</span></div>
+    <div class="pro-feat"><span class="pf-ico">🎖️</span><div class="pf-info"><div class="pf-title">Badges exclusifs Pro</div><div class="pf-sub">12 badges réservés aux membres Pro</div></div><span class="pf-pro">PRO</span></div>
+    <div class="pro-feat"><span class="pf-ico">🤖</span><div class="pf-info"><div class="pf-title">IA illimitée</div><div class="pf-sub">Suggestions IA sans restriction</div></div><span class="pf-pro">PRO</span></div>
+    <div class="pro-feat"><span class="pf-ico">🌍</span><div class="pf-info"><div class="pf-title">Mode Voyage</div><div class="pf-sub">Spots dans toutes les villes du monde</div></div><span class="pf-pro">PRO</span></div>
+    <div class="pro-feat"><span class="pf-ico">📅</span><div class="pf-info"><div class="pf-title">Agenda personnalisé</div><div class="pf-sub">Planning de flânerie sur mesure</div></div><span class="pf-pro">PRO</span></div>
+    <div class="pro-feat"><span class="pf-ico">🔔</span><div class="pf-info"><div class="pf-title">Alertes spots en temps réel</div><div class="pf-sub">Sois le premier informé des nouveautés</div></div><span class="pf-pro">PRO</span></div>
+  </div>
+
+  <!-- CTA -->
+
+  <div class="pro-cta">
+    <button class="pro-cta-btn" id="pro-cta-btn" onclick="subscribePro()">
+      Essayer gratuitement 7 jours →
+    </button>
+    <div class="pro-cta-sub">Annule à tout moment · Sans engagement · Paiement sécurisé</div>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD PROPRIÉTAIRE ══ -->
+
+<div class="pro-screen" id="owner-dash-screen" style="display:none">
+  <div style="padding:52px 16px 16px;display:flex;align-items:center;gap:12px">
+    <button onclick="document.getElementById('owner-dash-screen').style.display='none'" style="background:rgba(255,255,255,.1);border:none;border-radius:50%;width:36px;height:36px;color:white;font-size:18px;cursor:pointer">←</button>
+    <div style="font-size:18px;font-weight:900;color:white">📊 Dashboard Propriétaire</div>
+  </div>
+  <div style="padding:0 16px;padding-bottom:40px" id="owner-dash-content"></div>
+</div>
+
+<!-- ══ SCREEN ANALYTICS ══ -->
+
+<div class="analytics-screen" id="analytics-screen">
+  <div class="analytics-header">
+    <button onclick="closeAnalytics()" style="width:36px;height:36px;background:#F0F0F0;border:none;border-radius:50%;font-size:18px;cursor:pointer">←</button>
+    <div>
+      <div style="font-size:18px;font-weight:900">📊 Mes stats FLÂNY</div>
+      <div style="font-size:12px;color:var(--grey);font-weight:600;margin-top:2px" id="analytics-period">30 derniers jours</div>
+    </div>
+    <div id="analytics-pro-badge" style="margin-left:auto"></div>
+  </div>
+  <div class="analytics-scroll" id="analytics-content"></div>
+</div>
+
+<!-- ══ SOCIAL SCREEN ══ -->
+
+<div class="social-screen" id="social-screen">
+  <div class="social-header">
+    <button onclick="closeSocial()" style="width:36px;height:36px;background:#F0F0F0;border:none;border-radius:50%;font-size:18px;cursor:pointer">←</button>
+    <div style="font-size:18px;font-weight:900">👥 Social FLÂNY</div>
+  </div>
+  <div style="display:flex;gap:0;margin:0;background:#F0F0F0;flex-shrink:0">
+    <div class="dtab on" style="flex:1;padding:12px;text-align:center;font-size:13px;font-weight:800;cursor:pointer;border-radius:0" onclick="setSocialTab(this,'groups')">🏘️ Groupes</div>
+    <div class="dtab" style="flex:1;padding:12px;text-align:center;font-size:13px;font-weight:800;cursor:pointer;border-radius:0" onclick="setSocialTab(this,'plans')">📅 Plans</div>
+    <div class="dtab" style="flex:1;padding:12px;text-align:center;font-size:13px;font-weight:800;cursor:pointer;border-radius:0" onclick="setSocialTab(this,'messages')">💬 Messages</div>
+  </div>
+  <div class="social-scroll">
+    <div id="social-groups"></div>
+    <div id="social-plans" style="display:none"></div>
+    <div id="social-messages" style="display:none"></div>
+  </div>
+</div>
+
+<!-- DM Chat Screen -->
+
+<div class="dm-chat-screen" id="dm-chat-screen">
+  <div class="dm-chat-header">
+    <button onclick="closeDMChat()" style="width:36px;height:36px;background:#F0F0F0;border:none;border-radius:50%;font-size:18px;cursor:pointer">←</button>
+    <span style="font-size:26px" id="dm-chat-av">🦊</span>
+    <div>
+      <div style="font-size:15px;font-weight:900" id="dm-chat-name">Camille R.</div>
+      <div style="font-size:11px;color:var(--green);font-weight:700">🟢 En ligne</div>
+    </div>
+    <button onclick="shareSpotDM()" style="margin-left:auto;background:var(--gold-l);border:1px solid var(--gold);border-radius:10px;padding:6px 12px;font-size:12px;font-weight:800;cursor:pointer;color:var(--gold-d)">📍 Partager spot</button>
+  </div>
+  <div class="dm-messages" id="dm-messages"></div>
+  <div class="dm-footer">
+    <input type="text" style="flex:1;background:#F7F7F7;border:2px solid #EFEFEF;border-radius:20px;padding:10px 14px;font-size:14px;font-weight:600;outline:none;" 
+      id="dm-input" placeholder="Message..." 
+      onkeydown="if(event.key==='Enter')sendDM()">
+    <button onclick="sendDM()" style="width:40px;height:40px;background:var(--gold);border:none;border-radius:50%;cursor:pointer;font-size:18px;flex-shrink:0">➤</button>
+  </div>
+</div>
+
+<!-- Create Group Modal -->
+
+<div class="create-group-modal" id="create-group-modal" onclick="if(event.target===this)closeCreateGroup()">
+  <div class="create-group-sheet">
+    <div class="sh-bar"></div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:16px">🏘️ Créer un groupe</div>
+    <input type="text" style="width:100%;background:#F7F7F7;border:2px solid #EFEFEF;border-radius:14px;padding:12px 16px;font-size:15px;font-weight:600;outline:none;margin-bottom:10px;transition:border-color .2s" 
+      id="group-name-input" placeholder="Nom du groupe (ex: Les Flâneurs du 11ème)">
+    <div style="font-size:13px;font-weight:800;margin-bottom:8px;color:var(--grey)">Thème</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px" id="group-theme-options">
+      <div class="ob-opt" onclick="selectGroupTheme(this,'☀️')">☀️ Terrasses</div>
+      <div class="ob-opt" onclick="selectGroupTheme(this,'🍺')">🍺 Bars</div>
+      <div class="ob-opt" onclick="selectGroupTheme(this,'🍽️')">🍽️ Food</div>
+      <div class="ob-opt" onclick="selectGroupTheme(this,'🌿')">🌿 Zen</div>
+      <div class="ob-opt" onclick="selectGroupTheme(this,'🎭')">🎭 Events</div>
+      <div class="ob-opt" onclick="selectGroupTheme(this,'🚶')">🚶 Balades</div>
+    </div>
+    <button onclick="createGroup()" style="width:100%;background:var(--black);color:white;border:none;border-radius:16px;padding:14px;font-size:15px;font-weight:900;cursor:pointer">Créer le groupe →</button>
+  </div>
+</div>
+
+<!-- ══ ÉCRAN HUMEUR PROFONDE ══ -->
+
+<div class="emotion-screen" id="emotion-screen">
+  <div class="emotion-header">
+    <div class="eh-title">🐱 FLÂNY comprend</div>
+    <div class="eh-question">Comment tu te sens<br>vraiment là, maintenant ?</div>
+    <div class="eh-sub">Pas ce que tu veux faire — comment tu te sens</div>
+  </div>
+  <div class="emotion-grid" id="emotion-grid"></div>
+  <button class="emotion-next" onclick="applyDeepEmotion()">Trouve-moi le spot parfait →</button>
+</div>
+
+<!-- ══ MÉMOIRE DE VILLE — VIEWER CINÉMATIQUE ══ -->
+
+<div class="memory-viewer" id="memory-viewer" style="display:none">
+  <!-- Bandes cinéma -->
+  <div class="cinema-bars"></div>
+  <!-- Grain film -->
+
+  <!-- Progress -->
+
+  <div class="memory-progress" id="memory-progress"></div>
+
+  <!-- Controls -->
+
+  <div class="memory-controls">
+    <button class="mc-close" onclick="closeMemoryViewer()">✕</button>
+    <div style="font-size:11px;font-weight:900;letter-spacing:3px;color:rgba(255,255,255,.4);text-transform:uppercase" id="mv-mode-label">Mémoire</div>
+    <button class="mc-sound" id="mv-sound-btn" onclick="toggleMemorySound()">🔊 Son</button>
+  </div>
+
+  <!-- Slides -->
+
+  <div id="memory-slides"></div>
+
+  <!-- Tap zones -->
+
+  <div class="mv-tap-left" onclick="prevMemorySlide()"></div>
+  <div class="mv-tap-right" onclick="nextMemorySlide()"></div>
+
+  <!-- Music visualizer -->
+
+  <div class="music-viz" id="music-viz">
+    <div class="mv-bar"></div>
+    <div class="mv-bar"></div>
+    <div class="mv-bar"></div>
+    <div class="mv-bar"></div>
+    <div class="mv-bar"></div>
+  </div>
+</div>
+
+<!-- ══ ABONNEMENTS UTILISATEURS ══ -->
+
+<div class="sub-screen" id="sub-screen">
+  <div style="position:absolute;top:14px;right:16px;z-index:1">
+    <button onclick="closeSubScreen()" style="background:rgba(255,255,255,.1);border:none;border-radius:50%;width:36px;height:36px;color:white;font-size:18px;cursor:pointer">✕</button>
+  </div>
+  <div class="sub-hero">
+    <div style="font-size:56px;margin-bottom:12px">🐱</div>
+    <div style="font-size:28px;font-weight:900;color:white;margin-bottom:6px">FLÂNY <span style="color:var(--gold)">Premium</span></div>
+    <div style="font-size:14px;color:rgba(255,255,255,.5);font-weight:600">Plus tu t abonnes haut, plus tu débloques</div>
+  </div>
+  <div class="sub-plans" id="sub-plans-container"></div>
+  <div style="padding:0 16px 48px;text-align:center;font-size:11px;color:rgba(255,255,255,.2);font-weight:600">
+    Annule à tout moment · Paiement sécurisé · Sans engagement<br>
+    <span style="color:rgba(255,183,0,.4);cursor:pointer" onclick="openLegal('cgu')">CGU</span> · 
+    <span style="color:rgba(255,183,0,.4);cursor:pointer" onclick="openLegal('privacy')">Confidentialité</span>
+  </div>
+</div>
+
+<!-- ══ RÉCOMPENSES ══ -->
+
+<div class="rewards-screen" id="rewards-screen">
+  <div style="padding:52px 16px 16px;background:var(--white);border-bottom:1px solid #F0F0F0;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <button onclick="closeRewards()" style="width:36px;height:36px;background:#F0F0F0;border:none;border-radius:50%;font-size:18px;cursor:pointer">←</button>
+    <div>
+      <div style="font-size:18px;font-weight:900">🎁 Mes récompenses</div>
+      <div style="font-size:12px;color:var(--grey);font-weight:600;margin-top:2px" id="rewards-pts-display">0 pts · Niveau Flâneur</div>
+    </div>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:16px 16px 90px" id="rewards-content"></div>
+</div>
+
+<!-- ══ DASHBOARD PRO ══ -->
+
+<div class="pro-dash-screen" id="pro-dash-screen">
+  <div style="padding:52px 16px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <button onclick="closeProDash()" style="background:rgba(255,255,255,.1);border:none;border-radius:50%;width:36px;height:36px;color:white;font-size:18px;cursor:pointer">←</button>
+    <div style="font-size:18px;font-weight:900;color:white">🏢 Espace Professionnel</div>
+  </div>
+  <div style="flex:1;padding:0 16px 48px" id="pro-dash-pro-content"></div>
+</div>
+
+<!-- ══ INSCRIPTION PRO ══ -->
+
+<div class="pro-screen" id="pro-signup-screen" style="display:none">
+  <div style="position:absolute;top:14px;right:16px;z-index:1">
+    <button onclick="document.getElementById('pro-signup-screen').style.display='none'" style="background:rgba(255,255,255,.1);border:none;border-radius:50%;width:36px;height:36px;color:white;font-size:18px;cursor:pointer">✕</button>
+  </div>
+  <div style="padding:52px 20px 24px;text-align:center">
+    <div style="font-size:48px;margin-bottom:12px">🏢</div>
+    <div style="font-size:24px;font-weight:900;color:white;margin-bottom:6px">Inscrire mon établissement</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.5);font-weight:600;margin-bottom:24px">Restaurant · Bar · Musée · Association · École · Commerce</div>
+  </div>
+  <div style="padding:0 16px 48px">
+    <input type="text" id="pro-name" class="auth-input" placeholder="Nom de l établissement">
+    <input type="text" id="pro-type" class="auth-input" placeholder="Type (restaurant, bar, musée...)">
+    <input type="text" id="pro-address" class="auth-input" placeholder="Adresse">
+    <input type="email" id="pro-email" class="auth-input" placeholder="Email professionnel">
+    <input type="tel" id="pro-phone" class="auth-input" placeholder="Téléphone">
+    <div style="font-size:13px;font-weight:900;color:rgba(255,255,255,.5);margin:16px 0 10px;text-transform:uppercase;letter-spacing:1px">Choisir une formule</div>
+    <div id="pro-plan-selector"></div>
+    <button onclick="submitProSignup()" style="width:100%;background:var(--gold);color:#111;border:none;border-radius:16px;padding:16px;font-size:16px;font-weight:900;cursor:pointer;margin-top:16px">Demander mon accès →</button>
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:rgba(255,255,255,.25)">7 jours d essai gratuit · Sans CB requise</div>
+  </div>
+</div>
+
+<!-- ══ LANDING PAGE ══ -->
+
+<div class="landing-screen" id="landing-screen" style="display:none">
+  <div class="landing-hero">
+    <div style="font-size:72px;margin-bottom:16px">🐱</div>
+    <div style="font-size:48px;font-weight:900;color:#111;letter-spacing:-2px;margin-bottom:8px">FL<span style="color:white">Â</span>NY</div>
+    <div style="font-size:18px;font-weight:700;color:rgba(0,0,0,.6);margin-bottom:24px">Flâner. Âutrement.</div>
+    <div style="font-size:15px;color:rgba(0,0,0,.5);line-height:1.8;margin-bottom:32px">L app qui comprend comment tu te sens vraiment<br>et trouve le spot parfait · Zéro chaîne · 100% Unique</div>
+    <button onclick="closeLanding()" style="background:#111;color:white;border:none;border-radius:20px;padding:18px 40px;font-size:17px;font-weight:900;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.3)">Commencer à flâner →</button>
+  </div>
+  <div class="landing-feature">
+    <div style="font-size:36px;margin-bottom:12px">🎭</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:8px">Humeur profonde</div>
+    <div style="font-size:14px;color:#666;line-height:1.7">Pas ce que tu veux faire — comment tu te sens vraiment. Mélancolique, électrisé, libre, créatif... FLÂNY adapte chaque suggestion à ton état intérieur.</div>
+  </div>
+  <div class="landing-feature">
+    <div style="font-size:36px;margin-bottom:12px">🏘️</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:8px">Zéro chaîne. Jamais.</div>
+    <div style="font-size:14px;color:#666;line-height:1.7">FLÂNY ne référence que des lieux indépendants, uniques, tenus par de vraies personnes. Une charte, un engagement, un mouvement.</div>
+  </div>
+  <div class="landing-feature">
+    <div style="font-size:36px;margin-bottom:12px">⚡</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:8px">Spots éphémères</div>
+    <div style="font-size:14px;color:#666;line-height:1.7">Des spots qui disparaissent. Un concert improvisé, un coucher de soleil parfait, une expo de 24h. La rareté temporelle comme moteur.</div>
+  </div>
+  <div class="landing-feature">
+    <div style="font-size:36px;margin-bottom:12px">🎬</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:8px">Mémoire de Ville</div>
+    <div style="font-size:14px;color:#666;line-height:1.7">Chaque lieu a une histoire. FLÂNY la raconte avec Street View historique, archives, musique et voix. Un cinéma de ta ville.</div>
+  </div>
+  <div class="landing-feature">
+    <div style="font-size:36px;margin-bottom:12px">🤖</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:8px">IA qui apprend</div>
+    <div style="font-size:14px;color:#666;line-height:1.7">FLÂNY IA comprend ton historique, tes goûts, la météo, l heure. Ses suggestions deviennent plus précises chaque jour.</div>
+  </div>
+  <div style="padding:40px 24px;background:#111;text-align:center">
+    <div style="font-size:22px;font-weight:900;color:white;margin-bottom:8px">Rejoins les FLÂNY S</div>
+    <div style="font-size:14px;color:rgba(255,255,255,.4);margin-bottom:24px">Gratuit pour commencer · Premium dès 2,99€/mois</div>
+    <button onclick="closeLanding()" style="background:var(--gold);color:#111;border:none;border-radius:20px;padding:16px 36px;font-size:16px;font-weight:900;cursor:pointer">Commencer →</button>
+    <div style="margin-top:16px;font-size:11px;color:rgba(255,255,255,.2)">
+      <span style="cursor:pointer" onclick="openLegal('cgu')">CGU</span> · 
+      <span style="cursor:pointer" onclick="openLegal('privacy')">Confidentialité</span> · 
+      <span style="cursor:pointer" onclick="openProDash()">Espace Pro</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CGU & CONFIDENTIALITÉ ══ -->
+
+<div class="legal-screen" id="legal-screen">
+  <div style="position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:white;padding:14px 16px;border-bottom:1px solid #F0F0F0;display:flex;align-items:center;gap:10px;z-index:1">
+    <button onclick="closeLegal()" style="background:#F0F0F0;border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;flex-shrink:0">←</button>
+    <div style="font-size:16px;font-weight:900" id="legal-title">CGU</div>
+  </div>
+  <div class="legal-content" id="legal-content"></div>
+</div>
+
+</div><!-- /app -->
+
+<script src="app.js"></script>
+
+</body>
+</html>
